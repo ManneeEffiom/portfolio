@@ -13,5 +13,11 @@ primary_region = "iad"
   key = "PYTHON_VERSION"
   value = "3.11"
 
+# Worker consumes the broker, so eager must be OFF here.
+# UPSTASH_REDIS_URL is provided via `fly secrets set` (never commit it).
+[[env]]
+  key = "CELERY_TASK_ALWAYS_EAGER"
+  value = "False"
+
 [deploy]
   release_command = "echo 'celery worker ready'"

@@ -17,6 +17,15 @@ class Config:
     # Upstash Redis (used as Celery broker + result backend)
     UPSTASH_REDIS_URL = os.environ.get("UPSTASH_REDIS_URL")
 
+    # When True, tasks run inline in the web process (no worker needed).
+    # Set to False on the Fly.io worker so it consumes the broker instead.
+    CELERY_TASK_ALWAYS_EAGER = os.environ.get("CELERY_TASK_ALWAYS_EAGER", "True").lower() in (
+        "true",
+        "1",
+        "on",
+        "yes",
+    )
+
     FRONTEND_ORIGIN = os.environ.get("FRONTEND_ORIGIN", "*")
 
     # Local doc storage (Supabase Storage keys not yet available)

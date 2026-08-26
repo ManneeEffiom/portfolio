@@ -25,6 +25,8 @@ class Project(db.Model):
     title: Mapped[str] = mapped_column(String(200), nullable=False)
     slug: Mapped[str] = mapped_column(String(200), unique=True, nullable=False)
     description: Mapped[str] = mapped_column(Text, default="")
+    problem_solved: Mapped[str] = mapped_column(Text, default="")
+    role: Mapped[str] = mapped_column(Text, default="")
     stack: Mapped[list] = mapped_column(ARRAY(String), default=list)
     live_url: Mapped[str] = mapped_column(String(500), default="")
     repo_url: Mapped[str] = mapped_column(String(500), default="")
@@ -53,6 +55,8 @@ def _serialize(p):
         "title": p.title,
         "slug": p.slug,
         "description": p.description,
+        "problem_solved": p.problem_solved,
+        "role": p.role,
         "stack": p.stack or [],
         "live_url": p.live_url,
         "repo_url": p.repo_url,
@@ -125,4 +129,4 @@ def save_doc(file_storage, slug):
 
 
 def doc_public_url(filename):
-    return f"/docs/{filename}"
+    return f"/api/docs/{filename}"

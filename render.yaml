@@ -18,6 +18,8 @@ services:
         sync: false
       - key: UPSTASH_REDIS_URL
         sync: false
+      - key: CELERY_TASK_ALWAYS_EAGER
+        value: "True"
       - key: FRONTEND_ORIGIN
         value: "*"
       - key: UPLOAD_FOLDER

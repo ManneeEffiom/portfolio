@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_cors import CORS
 
@@ -10,7 +12,7 @@ def create_app():
     app.config.from_object(config)
     app.config["SQLALCHEMY_DATABASE_URI"] = config.DATABASE_URL
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config["UPLOAD_FOLDER"] = config.UPLOAD_FOLDER
+    app.config["UPLOAD_FOLDER"] = os.path.abspath(config.UPLOAD_FOLDER)
 
     CORS(app, origins=config.FRONTEND_ORIGIN)
 
