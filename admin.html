@@ -23,12 +23,13 @@
     <div id="panel" class="hidden">
       <h2 class="section">// ZION :: UPLOAD NODE</h2>
       <form id="project-form">
-        <input name="title" placeholder="project title" required />
-        <input name="slug" placeholder="slug (unique)" required />
-        <textarea name="description" placeholder="description"></textarea>
-        <input name="stack" placeholder="stack comma separated: Python,Flask" />
-        <input name="live_url" placeholder="live url" />
-        <input name="repo_url" placeholder="repo url" />
+        <input name="title" placeholder="project name" required />
+        <input name="slug" placeholder="slug (unique id, e.g. pay-api)" required />
+        <textarea name="problem_solved" placeholder="problem solved (what challenge did this project address?)" required></textarea>
+        <textarea name="role" placeholder="your role (what did you do on this project?)" required></textarea>
+        <input name="stack" placeholder="tech stack, comma separated: Python, FastAPI, MySQL" required />
+        <input name="live_url" placeholder="live project url" />
+        <input name="repo_url" placeholder="repository url" />
         <input type="file" name="doc" />
         <label><input type="checkbox" name="published" value="true" checked /> published</label>
         <label><input type="checkbox" name="featured" value="true" /> featured</label>

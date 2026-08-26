@@ -50,7 +50,8 @@
         return `<div class="node">
           <h3>${escapeHtml(p.title)}</h3>
           <div class="stack">${escapeHtml(stack)}</div>
-          <p>${escapeHtml(p.description || "")}</p>
+          <p><span class="label">&gt; problem:</span> ${escapeHtml(p.problem_solved || "")}</p>
+          <p><span class="label">&gt; role:</span> ${escapeHtml(p.role || "")}</p>
           <div>${live} ${repo} ${doc}</div>
         </div>`;
       })
