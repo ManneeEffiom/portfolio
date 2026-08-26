@@ -1,0 +1,17 @@
+app = "portfolio-celery"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[worker]
+  # Celery worker consuming Upstash Redis (broker + result backend)
+  command = "celery -A app.celery_app.celery_app worker --loglevel=info --concurrency=2"
+  processes = ["worker"]
+
+[[env]]
+  key = "PYTHON_VERSION"
+  value = "3.11"
+
+[deploy]
+  release_command = "echo 'celery worker ready'"
