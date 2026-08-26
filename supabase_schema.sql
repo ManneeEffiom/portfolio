@@ -1,11 +1,12 @@
-# Supabase SQL: run in Supabase SQL editor
+-- Tables are auto-created by SQLAlchemy (db.create_all) on first run.
+-- This DDL is provided for reference / manual setup in Supabase.
 
 create table if not exists public.projects (
   id uuid primary key default gen_random_uuid(),
   title text not null,
-  slug text unique,
+  slug text unique not null,
   description text,
-  stack text[],                -- e.g. ['Python','Flask','MySQL']
+  stack text[],
   live_url text,
   repo_url text,
   doc_url text,
@@ -14,12 +15,3 @@ create table if not exists public.projects (
   created_at timestamptz default now(),
   updated_at timestamptz default now()
 );
-
-alter table public.projects enable row level security;
-
--- Public read access for published projects
-create policy "public read published"
-  on public.projects for select
-  using (published = true);
-
--- Note: admin writes go through the service-role key on the backend (bypasses RLS).

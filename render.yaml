@@ -10,14 +10,8 @@ services:
         value: "3.11"
       - key: SECRET_KEY
         generateValue: true
-      - key: SUPABASE_URL
+      - key: DATABASE_URL
         sync: false
-      - key: SUPABASE_KEY
-        sync: false
-      - key: SUPABASE_ANON_KEY
-        sync: false
-      - key: SUPABASE_BUCKET
-        value: project-docs
       - key: ADMIN_USERNAME
         sync: false
       - key: ADMIN_PASSWORD
@@ -26,3 +20,5 @@ services:
         sync: false
       - key: FRONTEND_ORIGIN
         value: "*"
+      - key: UPLOAD_FOLDER
+        value: uploads

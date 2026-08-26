@@ -4,10 +4,11 @@ import os
 class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY", "change-me-in-production")
 
-    SUPABASE_URL = os.environ.get("SUPABASE_URL")
-    SUPABASE_KEY = os.environ.get("SUPABASE_KEY")  # service role key (server-side only)
-    SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY")
-    SUPABASE_BUCKET = os.environ.get("SUPABASE_BUCKET", "project-docs")
+    # Supabase Postgres connection (transaction pooler)
+    DATABASE_URL = os.environ.get(
+        "DATABASE_URL",
+        "postgresql://postgres.vviehdpjntgrtbiktfxg:M%40nn333ff10m@aws-1-eu-west-1.pooler.supabase.com:6543/postgres?sslmode=require",
+    )
 
     ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
     ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "change-me")
@@ -17,6 +18,9 @@ class Config:
     UPSTASH_REDIS_URL = os.environ.get("UPSTASH_REDIS_URL")
 
     FRONTEND_ORIGIN = os.environ.get("FRONTEND_ORIGIN", "*")
+
+    # Local doc storage (Supabase Storage keys not yet available)
+    UPLOAD_FOLDER = os.environ.get("UPLOAD_FOLDER", "uploads")
 
     @property
     def celery_broker_url(self):

@@ -1,14 +1,17 @@
-from flask import Blueprint, jsonify, request
+import functools
+
+import jwt
+from flask import Blueprint, jsonify, request, send_from_directory, current_app
 
 from app.auth import encode_token, login_required
 from app.models import (
     create_project,
     delete_project,
+    doc_public_url,
     get_project,
     list_projects,
+    save_doc,
     update_project,
-    upload_doc,
-    get_public_doc_url,
 )
 
 api = Blueprint("api", __name__, url_prefix="/api")
@@ -31,6 +34,11 @@ def project_detail(project_id):
     if not row:
         return jsonify({"error": "node not found"}), 404
     return jsonify(row)
+
+
+@api.route("/docs/<path:filename>", methods=["GET"])
+def serve_doc(filename):
+    return send_from_directory(current_app.config["UPLOAD_FOLDER"], filename)
 
 
 # ---------- Admin: Zion Control ----------
@@ -57,10 +65,9 @@ def admin_list():
 def admin_create():
     payload = request.form.to_dict()
     doc = request.files.get("doc")
-    if doc:
-        filename = f"{payload.get('slug', 'doc')}-{doc.filename}"
-        upload_doc(doc.stream, filename)
-        payload["doc_url"] = get_public_doc_url(filename)
+    if doc and doc.filename:
+        filename = save_doc(doc, payload.get("slug", "doc"))
+        payload["doc_url"] = doc_public_url(filename)
     row = create_project(payload)
     if row and row.get("doc_url"):
         from app.tasks import process_doc
@@ -75,10 +82,9 @@ def admin_modify(project_id):
     if request.method == "PUT":
         payload = request.form.to_dict()
         doc = request.files.get("doc")
-        if doc:
-            filename = f"{payload.get('slug', 'doc')}-{doc.filename}"
-            upload_doc(doc.stream, filename)
-            payload["doc_url"] = get_public_doc_url(filename)
+        if doc and doc.filename:
+            filename = save_doc(doc, payload.get("slug", "doc"))
+            payload["doc_url"] = doc_public_url(filename)
         row = update_project(project_id, payload)
         return jsonify(row)
     row = delete_project(project_id)
