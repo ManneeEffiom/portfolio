@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" class="scanlines">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>// ZION CONTROL</title>
+  <link rel="stylesheet" href="css/matrix.css" />
+</head>
+<body>
+  <canvas id="rain"></canvas>
+  <div class="content">
+
+    <div id="login">
+      <h2 class="section">// ZION CONTROL :: AUTH</h2>
+      <form id="login-form">
+        <input id="username" placeholder="username" autocomplete="username" />
+        <input id="password" type="password" placeholder="password" autocomplete="current-password" />
+        <button type="submit">enter</button>
+      </form>
+      <p class="msg" id="login-msg"></p>
+    </div>
+
+    <div id="panel" class="hidden">
+      <h2 class="section">// ZION :: UPLOAD NODE</h2>
+      <form id="project-form">
+        <input name="title" placeholder="project title" required />
+        <input name="slug" placeholder="slug (unique)" required />
+        <textarea name="description" placeholder="description"></textarea>
+        <input name="stack" placeholder="stack comma separated: Python,Flask" />
+        <input name="live_url" placeholder="live url" />
+        <input name="repo_url" placeholder="repo url" />
+        <input type="file" name="doc" />
+        <label><input type="checkbox" name="published" value="true" checked /> published</label>
+        <label><input type="checkbox" name="featured" value="true" /> featured</label>
+        <button type="submit">deploy node</button>
+      </form>
+      <p class="msg" id="panel-msg"></p>
+      <button id="logout">logout</button>
+      <h2 class="section">// Active Nodes</h2>
+      <div id="admin-list"></div>
+    </div>
+
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/rain.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

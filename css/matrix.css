@@ -1,0 +1,148 @@
+/* ===== Matrix vibe ===== */
+:root {
+  --matrix-green: #00ff41;
+  --matrix-dim: #008f11;
+  --bg: #000000;
+  --glow: 0 0 6px rgba(0, 255, 65, 0.7);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--matrix-green);
+  font-family: "Courier New", Courier, monospace;
+  overflow-x: hidden;
+}
+
+#rain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.scanlines::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.25) 3px,
+    rgba(0, 0, 0, 0.25) 4px
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+header.hero {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-shadow: var(--glow);
+}
+
+.hero h1 {
+  font-size: clamp(1.6rem, 5vw, 3rem);
+  letter-spacing: 2px;
+  margin: 0 0 0.5rem;
+}
+
+.hero .typed {
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  min-height: 2.4em;
+  white-space: pre-wrap;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  background: var(--matrix-green);
+  margin-left: 2px;
+  animation: blink 1s steps(2, start) infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink { to { visibility: hidden; } }
+
+h2.section {
+  border-left: 4px solid var(--matrix-green);
+  padding-left: 0.6rem;
+  margin-top: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: var(--glow);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.node {
+  border: 1px solid var(--matrix-dim);
+  background: rgba(0, 30, 0, 0.35);
+  padding: 1rem;
+  box-shadow: var(--glow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.node:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 14px rgba(0, 255, 65, 0.9);
+}
+
+.node h3 { margin: 0 0 0.4rem; font-size: 1.1rem; }
+.node .stack { font-size: 0.8rem; color: var(--matrix-dim); margin-bottom: 0.6rem; }
+.node a { color: var(--matrix-green); text-decoration: none; border-bottom: 1px dotted var(--matrix-green); }
+.node a:hover { background: var(--matrix-dim); color: #000; }
+
+.skills span {
+  display: inline-block;
+  border: 1px solid var(--matrix-dim);
+  padding: 0.25rem 0.6rem;
+  margin: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.contact a { color: var(--matrix-green); }
+
+footer {
+  margin-top: 4rem;
+  font-size: 0.75rem;
+  color: var(--matrix-dim);
+  text-align: center;
+}
+
+/* ===== Zion admin ===== */
+#login, #panel { max-width: 520px; margin: 4rem auto; }
+input, button, textarea {
+  width: 100%;
+  background: #000;
+  color: var(--matrix-green);
+  border: 1px solid var(--matrix-dim);
+  font-family: inherit;
+  padding: 0.6rem;
+  margin: 0.4rem 0;
+}
+button { cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+button:hover { background: var(--matrix-dim); color: #000; }
+.hidden { display: none; }
+.msg { font-size: 0.85rem; min-height: 1.2em; }
